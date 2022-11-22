@@ -1,0 +1,369 @@
+Stata license: Unlimited-user 64-core network perpetual
+Serial number: 18461036
+  Licensed to: TEAM BTCR
+               TEAM BTCR
+
+Notes:
+      1. Unicode is supported; see help unicode_advice.
+      2. More than 2 billion observations are allowed; see help obs_advice.
+      3. Maximum number of variables is set to 5,000; see help set_maxvar.
+
+. import excel "C:\Users\user\Dropbox\chemerin\meta1 (Autosaved).xlsx", sheet("Sheet1") firstrow
+(18 vars, 11 obs)
+
+. meta esize samplesizechemerin meanchemerin SDchemerin samplesizecontrol meancontrol Sdcontrol, esize(cohend) stu
+> dylabel(AuthorDate)
+
+Meta-analysis setting information
+
+ Study information
+    No. of studies: 11
+       Study label: AuthorDate
+        Study size: _meta_studysize
+      Summary data: samplesizechemerin meanchemerin SDchemerin samplesizecontrol meancontrol Sdcontrol
+
+       Effect size
+              Type: cohend
+             Label: Cohen's d
+          Variable: _meta_es
+
+         Precision
+         Std. err.: _meta_se
+    Std. err. adj.: None
+                CI: [_meta_cil, _meta_ciu]
+          CI level: 95%
+
+  Model and method
+             Model: Random effects
+            Method: REML
+
+. meta summarize, random(reml)
+
+  Effect-size label: Cohen's d
+        Effect size: _meta_es
+          Std. err.: _meta_se
+        Study label: AuthorDate
+
+Meta-analysis summary                               Number of studies =     11
+Random-effects model                                Heterogeneity:
+Method: REML                                                    tau2 =  2.0778
+                                                              I2 (%) =   98.19
+                                                                  H2 =   55.36
+
+------------------------------------------------------------------------------
+                      Study |      Cohen's d    [95% conf. interval]  % weight
+----------------------------+-------------------------------------------------
+      Mohammed et al (2021) |          3.785       3.079       4.490      8.88
+       Mahgoob et al (2020) |          0.007      -0.536       0.551      9.10
+       Mohamed et al (2017) |          1.056       0.711       1.401      9.30
+         Kajor et al (2017) |          0.164      -0.531       0.860      8.90
+       Bekaert et al (2016) |          0.278      -0.235       0.790      9.14
+Klusek-Oksiuta et al (2014) |          0.990       0.032       1.948      8.47
+       Polyzos et al (2014) |         -1.512      -2.075      -0.949      9.08
+            Ye et al (2014) |         -1.755      -1.909      -1.602      9.41
+          Chen et al (2012) |          0.692       0.408       0.975      9.34
+        Yilmaz et al (2011) |          0.873       0.560       1.187      9.32
+         Kukla et al (2010) |          1.314       0.731       1.898      9.05
+----------------------------+-------------------------------------------------
+                      theta |          0.522      -0.346       1.389
+------------------------------------------------------------------------------
+Test of theta = 0: z = 1.18                                Prob > |z| = 0.2389
+Test of homogeneity: Q = chi2(10) = 690.32                   Prob > Q = 0.0000
+
+. meta forestplot, random(reml)
+
+  Effect-size label: Cohen's d
+        Effect size: _meta_es
+          Std. err.: _meta_se
+        Study label: AuthorDate
+
+. meta summarize, random(reml) subgroup(Agegroup NAFLDdiagnosismethod region otherdisease controlgroup)
+
+  Effect-size label: Cohen's d
+        Effect size: _meta_es
+          Std. err.: _meta_se
+        Study label: AuthorDate
+
+Subgroup meta-analysis summary                                Number of studies =     11
+Random-effects model
+Method: REML 
+Group: Agegroup NAFLDdiagnosismethod region otherdisease controlgroup
+
+----------------------------------------------------------------------------------------
+                            |  No. of
+                      Group | studies        Cohen's d    [95% conf. interval]   p-value
+----------------------------+-----------------------------------------------------------
+Agegroup                    |
+                     adults |       8            0.468      -0.722       1.658     0.441
+                   children |       3            0.670      -0.036       1.377     0.063
+----------------------------+-----------------------------------------------------------
+NAFLDdiagnosismethod        |
+                     Biopsy |       6            0.373      -0.438       1.185     0.367
+            Ultrasonography |       5            0.725      -1.039       2.489     0.421
+----------------------------+-----------------------------------------------------------
+region                      |
+                       Asia |       6            0.759      -0.665       2.184     0.296
+                     Europe |       5            0.229      -0.745       1.203     0.645
+----------------------------+-----------------------------------------------------------
+otherdisease                |
+                         No |      10            0.506      -0.456       1.467     0.303
+                        Yes |       1            0.692       0.408       0.975     0.000
+----------------------------+-----------------------------------------------------------
+controlgroup                |
+                  Non-NAFLD |       7            0.236      -0.412       0.883     0.476
+           healthy controls |       4            1.037      -1.185       3.259     0.360
+----------------------------+-----------------------------------------------------------
+Overall                     |
+                      theta |      11            0.522      -0.346       1.389     0.239
+----------------------------------------------------------------------------------------
+
+Heterogeneity summary
+-----------------------------------------------------------------------------
+         Group |      df          Q   P > Q        tau2       % I2         H2
+---------------+-------------------------------------------------------------
+Agegroup       |
+        adults |       7     597.29   0.000       2.881      98.81      83.86
+      children |       2      10.42   0.005       0.292      78.23       4.59
+---------------+-------------------------------------------------------------
+NAFLDdiagnos~d |
+        Biopsy |       5      72.44   0.000       0.959      94.57      18.41
+Ultrasonogra~y |       4     434.78   0.000       3.958      99.11     111.98
+---------------+-------------------------------------------------------------
+region         |
+          Asia |       5     621.10   0.000       3.123      99.20     124.80
+        Europe |       4      51.91   0.000       1.117      91.56      11.84
+---------------+-------------------------------------------------------------
+otherdisease   |
+            No |       9     621.75   0.000       2.321      98.16      54.40
+           Yes |       0       0.00       .       0.000          .          .
+---------------+-------------------------------------------------------------
+controlgroup   |
+     Non-NAFLD |       6      66.11   0.000       0.677      92.01      12.51
+healthy cont~s |       3     466.22   0.000       5.081      99.37     158.63
+---------------+-------------------------------------------------------------
+       Overall |      10     690.32   0.000       2.078      98.19      55.36
+-----------------------------------------------------------------------------
+
+Tests of group differences
+----------------------------------------------------
+                   |        df        Q_b    P > Q_b
+-------------------+--------------------------------
+          Agegroup |         1       0.08      0.774
+ NAFLDdiagnosism~d |         1       0.13      0.723
+            region |         1       0.36      0.547
+      otherdisease |         1       0.13      0.716
+      controlgroup |         1       0.46      0.497
+----------------------------------------------------
+
+. meta forestplot, random(reml) subgroup(Agegroup NAFLDdiagnosismethod region otherdisease controlgroup)
+
+  Effect-size label: Cohen's d
+        Effect size: _meta_es
+          Std. err.: _meta_se
+        Study label: AuthorDate
+
+. meta galbraith, random(reml)
+
+  Effect-size label: Cohen's d
+        Effect size: _meta_es
+          Std. err.: _meta_se
+              Model: Random effects
+             Method: REML
+
+. meta regress BMI JBIscore age K, random(reml)
+
+  Effect-size label: Cohen's d
+        Effect size: _meta_es
+          Std. err.: _meta_se
+
+Random-effects meta-regression                      Number of obs  =        10
+Method: REML                                        Residual heterogeneity:
+                                                                tau2 =   1.946
+                                                              I2 (%) =   97.40
+                                                                  H2 =   38.51
+                                                       R-squared (%) =   15.40
+                                                    Wald chi2(4)   =      5.52
+                                                    Prob > chi2    =    0.2380
+------------------------------------------------------------------------------
+    _meta_es | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         BMI |   .0646431   .0684733     0.94   0.345    -.0695621    .1988483
+    JBIscore |  -.3635078   .5171678    -0.70   0.482    -1.377138    .6501225
+         age |  -.0193201   .0366999    -0.53   0.599    -.0912504    .0526103
+           K |  -.0023053   .0019465    -1.18   0.236    -.0061204    .0015097
+       _cons |   2.597866   4.354796     0.60   0.551    -5.937377    11.13311
+------------------------------------------------------------------------------
+Test of residual homogeneity: Q_res = chi2(5) = 115.17   Prob > Q_res = 0.0000
+
+. meta funnelplot
+
+  Effect-size label: Cohen's d
+        Effect size: _meta_es
+          Std. err.: _meta_se
+              Model: Common effect
+             Method: Inverse-variance
+
+. meta bias, egger
+
+  Effect-size label: Cohen's d
+        Effect size: _meta_es
+          Std. err.: _meta_se
+
+Regression-based Egger test for small-study effects
+Random-effects model
+Method: REML
+
+H0: beta1 = 0; no small-study effects
+            beta1 =      5.01
+      SE of beta1 =     3.862
+                z =      1.30
+       Prob > |z| =    0.1942
+
+. meta trimfill
+
+  Effect-size label: Cohen's d
+        Effect size: _meta_es
+          Std. err.: _meta_se
+
+Nonparametric trim-and-fill analysis of publication bias
+Linear estimator, imputing on the left
+
+Iteration                            Number of studies =     11
+  Model: Random-effects                       observed =     11
+ Method: REML                                  imputed =      0
+
+Pooling
+  Model: Random-effects
+ Method: REML
+
+---------------------------------------------------------------
+             Studies |        Cohen's d    [95% conf. interval]
+---------------------+-----------------------------------------
+            Observed |            0.522      -0.346       1.389
+  Observed + Imputed |            0.522      -0.346       1.389
+---------------------------------------------------------------
+
+. import excel "C:\Users\user\Dropbox\chemerin\meta1 (Autosaved).xlsx", sheet("Sheet2") firstrow clear
+(14 vars, 6 obs)
+
+. replace upper = 1.01 in 4
+(1 real change made)
+
+. meta set OR upper lower, civartolerance(1)
+
+Meta-analysis setting information
+
+ Study information
+    No. of studies: 6
+       Study label: Generic
+        Study size: N/A
+
+       Effect size
+              Type: <generic>
+             Label: Effect size
+          Variable: OR
+
+         Precision
+         Std. err.: _meta_se
+                CI: [_meta_cil, _meta_ciu]
+          CI level: 95%, controlled by level()
+           User CI: [upper, lower]
+     User CI level: 95%, controlled by civarlevel()
+
+  Model and method
+             Model: Random effects
+            Method: REML
+
+. 
+. meta summarize, random(reml) subgroup(Agegroup NAFLDdiagnosismethod region otherdisease controlgroup)
+variable Agegroup not found
+(error in option subgroup())
+r(111);
+
+. meta forestplot, random(reml) subgroup(NAFLDdiagnosismethod region otherdisease controlgroup)
+variable controlgroup not found
+(error in option subgroup())
+r(111);
+
+. meta galbraith, random(reml)
+
+  Effect-size label: Effect size
+        Effect size: OR
+          Std. err.: _meta_se
+              Model: Random effects
+             Method: REML
+
+. meta regress JBIscore BMI age samplesize, random(reml)
+
+  Effect-size label: Effect size
+        Effect size: OR
+          Std. err.: _meta_se
+
+Random-effects meta-regression                      Number of obs  =         6
+Method: REML                                        Residual heterogeneity:
+                                                                tau2 =   .0136
+                                                              I2 (%) =   73.38
+                                                                  H2 =    3.76
+                                                       R-squared (%) =    0.00
+                                                    Wald chi2(4)   =      0.17
+                                                    Prob > chi2    =    0.9966
+------------------------------------------------------------------------------
+    _meta_es | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+    JBIscore |  -.0098277   .0729516    -0.13   0.893    -.1528101    .1331548
+         BMI |   .0110637   .0774567     0.14   0.886    -.1407486     .162876
+         age |   .0015344   .0143019     0.11   0.915    -.0264967    .0295656
+  samplesize |   5.55e-06   .0002105     0.03   0.979    -.0004071    .0004182
+       _cons |   .7403835   2.082589     0.36   0.722    -3.341417    4.822184
+------------------------------------------------------------------------------
+Test of residual homogeneity: Q_res = chi2(1) =  3.76    Prob > Q_res = 0.0526
+
+. meta funnelplot
+
+  Effect-size label: Effect size
+        Effect size: OR
+          Std. err.: _meta_se
+              Model: Common effect
+             Method: Inverse-variance
+
+. meta bias, egger
+
+  Effect-size label: Effect size
+        Effect size: OR
+          Std. err.: _meta_se
+
+Regression-based Egger test for small-study effects
+Random-effects model
+Method: REML
+
+H0: beta1 = 0; no small-study effects
+            beta1 =      0.65
+      SE of beta1 =     0.619
+                z =      1.05
+       Prob > |z| =    0.2924
+
+. meta trimfill
+
+  Effect-size label: Effect size
+        Effect size: OR
+          Std. err.: _meta_se
+
+Nonparametric trim-and-fill analysis of publication bias
+Linear estimator, imputing on the left
+
+Iteration                            Number of studies =      7
+  Model: Random-effects                       observed =      6
+ Method: REML                                  imputed =      1
+
+Pooling
+  Model: Random-effects
+ Method: REML
+
+---------------------------------------------------------------
+             Studies |      Effect size    [95% conf. interval]
+---------------------+-----------------------------------------
+            Observed |            1.012       0.999       1.025
+  Observed + Imputed |            1.011       0.998       1.024
+---------------------------------------------------------------
+
+.
